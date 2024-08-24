@@ -29,6 +29,8 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class TelaPrincipal extends JFrame {
 
@@ -186,7 +188,7 @@ public class TelaPrincipal extends JFrame {
 		registerTable(url, user, password);
 		
 		JButton btnNewButtonNovoLeitor = new JButton("Novo leitor");
-		btnNewButtonNovoLeitor.setBounds(0, 11, 93, 23);
+		btnNewButtonNovoLeitor.setBounds(0, 11, 96, 23);
 		panel_1.add(btnNewButtonNovoLeitor);
 		btnNewButtonNovoLeitor.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnNewButtonNovoLeitor.setBackground(new Color(43, 167, 208));
@@ -210,6 +212,8 @@ public class TelaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaPrincipal() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/icones/logobiblioteca500x500.png")));
+		setTitle("Sistema biblioteca - tela principal\r\n");
 		setMinimumSize(new Dimension(1050, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1070, 600);
@@ -225,7 +229,7 @@ public class TelaPrincipal extends JFrame {
 		panel.setBackground(new Color(43, 167, 208));
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 53, 153, 14);
+		separator.setBounds(8, 128, 153, 14);
 		
 		JButton btnNewButton = new JButton("Cadastro de usúario");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -234,12 +238,12 @@ public class TelaPrincipal extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(new Rectangle(10, 78, 153, 19));
+		btnNewButton.setBounds(new Rectangle(8, 153, 153, 19));
 		btnNewButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnNewButton.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, new Color(0, 145, 145)));
 		
 		JButton btnNewButton_1 = new JButton("Cadastro de livro\r\n");
-		btnNewButton_1.setBounds(new Rectangle(10, 115, 153, 19));
+		btnNewButton_1.setBounds(new Rectangle(8, 190, 153, 19));
 		btnNewButton_1.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, new Color(0, 145, 145)));
 		btnNewButton_1.setAlignmentX(0.5f);
 		
@@ -249,12 +253,12 @@ public class TelaPrincipal extends JFrame {
 				tabelaLeitor();
 			}
 		});
-		btnNewButton_1_1.setBounds(new Rectangle(10, 152, 153, 19));
+		btnNewButton_1_1.setBounds(new Rectangle(8, 227, 153, 19));
 		btnNewButton_1_1.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, new Color(0, 145, 145)));
 		btnNewButton_1_1.setAlignmentX(0.5f);
 		
 		JButton btnNewButton_1_2 = new JButton("Cadastro de emprestimo");
-		btnNewButton_1_2.setBounds(new Rectangle(10, 189, 153, 19));
+		btnNewButton_1_2.setBounds(new Rectangle(8, 264, 153, 19));
 		btnNewButton_1_2.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, new Color(0, 145, 145)));
 		btnNewButton_1_2.setAlignmentX(0.5f);
 		panel.setLayout(null);
@@ -267,8 +271,13 @@ public class TelaPrincipal extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Painel Principal");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(36, 23, 101, 14);
+		lblNewLabel.setBounds(34, 98, 112, 14);
 		panel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/logobiblioteca82x82.png")));
+		lblNewLabel_1.setBounds(43, 8, 82, 82);
+		panel.add(lblNewLabel_1);
 	
 		
 		
