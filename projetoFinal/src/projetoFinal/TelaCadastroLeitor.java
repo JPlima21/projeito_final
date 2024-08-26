@@ -89,11 +89,12 @@ public class TelaCadastroLeitor extends JDialog {
 		}
 		
 	try {
-		MaskFormatter maskcpf,maskphone;
+		MaskFormatter maskcpf,maskphone,maskcep;
 		maskcpf = new MaskFormatter("###.###.###-##");
 		maskcpf.setPlaceholderCharacter('_');
 		maskphone = new MaskFormatter("(##) #####-####");
 		maskphone.setPlaceholderCharacter('_');
+		
 		
 		{
 			JFormattedTextField formattedTextFieldNome = new JFormattedTextField();
@@ -131,9 +132,9 @@ public class TelaCadastroLeitor extends JDialog {
 			contentPanel.add(formattedTextFieldNum);
 		}
 		{
-			JFormattedTextField formattedTextFieldRua = new JFormattedTextField();
-			formattedTextFieldRua.setBounds(102, 246, 273, 20);
-			contentPanel.add(formattedTextFieldRua);
+			JFormattedTextField formattedTextFieldCep = new JFormattedTextField();
+			formattedTextFieldCep.setBounds(102, 246, 273, 20);
+			contentPanel.add(formattedTextFieldCep);
 		}
 	} catch (ParseException e) {
 		e.printStackTrace();
