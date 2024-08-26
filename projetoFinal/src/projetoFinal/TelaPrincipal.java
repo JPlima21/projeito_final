@@ -192,6 +192,16 @@ public class TelaPrincipal extends JFrame {
 		panel_1.add(btnNewButtonNovoLeitor);
 		btnNewButtonNovoLeitor.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnNewButtonNovoLeitor.setBackground(new Color(43, 167, 208));
+		btnNewButtonNovoLeitor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroLeitor cadastroleitor = new TelaCadastroLeitor(TelaPrincipal.this);
+				cadastroleitor.setVisible(true);
+				
+				contentPane.repaint();
+				contentPane.revalidate();
+				
+			}
+		});
 		
 		JButton btnNewButtonExcluir = new JButton("Excluir\r\n");
 		btnNewButtonExcluir.setBackground(new Color(255, 0, 0));
