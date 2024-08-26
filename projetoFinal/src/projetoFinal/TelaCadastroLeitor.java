@@ -39,8 +39,6 @@ public class TelaCadastroLeitor extends JDialog {
 		contentPanel.setLayout(null);
 		
 		{
-			
-			
 			JLabel lblNewLabel = new JLabel("Nome:");
 			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			lblNewLabel.setBounds(10, 25, 60, 21);
@@ -89,19 +87,26 @@ public class TelaCadastroLeitor extends JDialog {
 			contentPanel.add(lblBairro);
 			
 		}
+		
+	try {
+		MaskFormatter maskcpf,maskphone;
+		maskcpf = new MaskFormatter("###.###.###-##");
+		maskcpf.setPlaceholderCharacter('_');
+		maskphone = new MaskFormatter("(##) #####-####");
+		maskphone.setPlaceholderCharacter('_');
+		
 		{
-			
 			JFormattedTextField formattedTextFieldNome = new JFormattedTextField();
 			formattedTextFieldNome.setBounds(102, 27, 273, 20);
 			contentPanel.add(formattedTextFieldNome);
 		}
 		{
-			JFormattedTextField formattedTextFieldCpf = new JFormattedTextField();
+			JFormattedTextField formattedTextFieldCpf = new JFormattedTextField(maskcpf);
 			formattedTextFieldCpf.setBounds(102, 58, 273, 20);
 			contentPanel.add(formattedTextFieldCpf);
 		}
 		{
-			JFormattedTextField formattedTextFieldPhone = new JFormattedTextField();
+			JFormattedTextField formattedTextFieldPhone = new JFormattedTextField(maskphone);
 			formattedTextFieldPhone.setBounds(102, 89, 273, 20);
 			contentPanel.add(formattedTextFieldPhone);
 		}
@@ -126,15 +131,18 @@ public class TelaCadastroLeitor extends JDialog {
 			contentPanel.add(formattedTextFieldNum);
 		}
 		{
+			JFormattedTextField formattedTextFieldRua = new JFormattedTextField();
+			formattedTextFieldRua.setBounds(102, 246, 273, 20);
+			contentPanel.add(formattedTextFieldRua);
+		}
+	} catch (ParseException e) {
+		e.printStackTrace();
+	}	
+		{
 			JLabel lblCep = new JLabel("CEP");
 			lblCep.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			lblCep.setBounds(10, 245, 30, 21);
 			contentPanel.add(lblCep);
-		}
-		{
-			JFormattedTextField formattedTextFieldRua = new JFormattedTextField();
-			formattedTextFieldRua.setBounds(102, 246, 273, 20);
-			contentPanel.add(formattedTextFieldRua);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -167,3 +175,4 @@ public class TelaCadastroLeitor extends JDialog {
 		}
 	}
 }
+
