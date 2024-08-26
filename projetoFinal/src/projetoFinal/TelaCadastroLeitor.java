@@ -26,25 +26,9 @@ public class TelaCadastroLeitor extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		try {
-//			TelaCadastroLeitor dialog = new TelaCadastroLeitor(null);
-//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			dialog.setVisible(true);
-//			dialog.setLocationRelativeTo();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-
-	/**
-	 * Create the dialog.
-	 * @throws ParseException 
-	 */
-	public TelaCadastroLeitor(JFrame parent) throws ParseException {
+//	
+	
+	public TelaCadastroLeitor(JFrame parent) {
 		super(parent, "Tela cadastro leitor", true);
 		setLocationRelativeTo(parent);
 		setBounds(100, 100, 450, 450);
@@ -54,10 +38,9 @@ public class TelaCadastroLeitor extends JDialog {
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
 		
-		MaskFormatter maskcpf, maskphone, cep;
-		maskcpf = new MaskFormatter("###.###.###-##");
-		maskphone = new MaskFormatter("(##) #####-####");
 		{
+			
+			
 			JLabel lblNewLabel = new JLabel("Nome:");
 			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			lblNewLabel.setBounds(10, 25, 60, 21);
@@ -87,49 +70,72 @@ public class TelaCadastroLeitor extends JDialog {
 			lblEndereo.setBounds(10, 149, 75, 21);
 			contentPanel.add(lblEndereo);
 		}
-		
-		JLabel lblRua = new JLabel("Rua");
-		lblRua.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblRua.setBounds(10, 213, 30, 21);
-		contentPanel.add(lblRua);
-		
-		JLabel lblNmero = new JLabel("Número");
-		lblNmero.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNmero.setBounds(10, 245, 49, 21);
-		contentPanel.add(lblNmero);
-		
-		JLabel lblBairro = new JLabel("Bairro");
-		lblBairro.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblBairro.setBounds(10, 181, 60, 21);
-		contentPanel.add(lblBairro);
-		
-		JFormattedTextField formattedTextFieldNome = new JFormattedTextField();
-		formattedTextFieldNome.setBounds(102, 27, 273, 20);
-		contentPanel.add(formattedTextFieldNome);
-		
-		JFormattedTextField formattedTextFieldCpf = new JFormattedTextField(maskcpf);
-		formattedTextFieldCpf.setBounds(102, 58, 273, 20);
-		contentPanel.add(formattedTextFieldCpf);
-		
-		JFormattedTextField formattedTextFieldPhone = new JFormattedTextField(maskphone);
-		formattedTextFieldPhone.setBounds(102, 89, 273, 20);
-		contentPanel.add(formattedTextFieldPhone);
-		
-		JFormattedTextField formattedTextFieldEmail = new JFormattedTextField();
-		formattedTextFieldEmail.setBounds(102, 120, 273, 20);
-		contentPanel.add(formattedTextFieldEmail);
-		
-		JFormattedTextField formattedTextFieldBairro = new JFormattedTextField();
-		formattedTextFieldBairro.setBounds(102, 183, 273, 20);
-		contentPanel.add(formattedTextFieldBairro);
-		
-		JFormattedTextField formattedTextFieldRua = new JFormattedTextField();
-		formattedTextFieldRua.setBounds(102, 215, 273, 20);
-		contentPanel.add(formattedTextFieldRua);
-		
-		JFormattedTextField formattedTextFieldNum = new JFormattedTextField();
-		formattedTextFieldNum.setBounds(102, 247, 273, 20);
-		contentPanel.add(formattedTextFieldNum);
+		{
+			JLabel lblRua = new JLabel("Rua");
+			lblRua.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblRua.setBounds(10, 213, 30, 21);
+			contentPanel.add(lblRua);
+		}
+		{
+			JLabel lblNmero = new JLabel("Número");
+			lblNmero.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblNmero.setBounds(10, 277, 49, 21);
+			contentPanel.add(lblNmero);
+		}
+		{
+			JLabel lblBairro = new JLabel("Bairro");
+			lblBairro.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblBairro.setBounds(10, 181, 60, 21);
+			contentPanel.add(lblBairro);
+			
+		}
+		{
+			
+			JFormattedTextField formattedTextFieldNome = new JFormattedTextField();
+			formattedTextFieldNome.setBounds(102, 27, 273, 20);
+			contentPanel.add(formattedTextFieldNome);
+		}
+		{
+			JFormattedTextField formattedTextFieldCpf = new JFormattedTextField();
+			formattedTextFieldCpf.setBounds(102, 58, 273, 20);
+			contentPanel.add(formattedTextFieldCpf);
+		}
+		{
+			JFormattedTextField formattedTextFieldPhone = new JFormattedTextField();
+			formattedTextFieldPhone.setBounds(102, 89, 273, 20);
+			contentPanel.add(formattedTextFieldPhone);
+		}
+		{
+			JFormattedTextField formattedTextFieldEmail = new JFormattedTextField();
+			formattedTextFieldEmail.setBounds(102, 120, 273, 20);
+			contentPanel.add(formattedTextFieldEmail);
+		}
+		{
+			JFormattedTextField formattedTextFieldBairro = new JFormattedTextField();
+			formattedTextFieldBairro.setBounds(102, 183, 273, 20);
+			contentPanel.add(formattedTextFieldBairro);
+		}
+		{
+			JFormattedTextField formattedTextFieldRua = new JFormattedTextField();
+			formattedTextFieldRua.setBounds(102, 215, 273, 20);
+			contentPanel.add(formattedTextFieldRua);
+		}
+		{
+			JFormattedTextField formattedTextFieldNum = new JFormattedTextField();
+			formattedTextFieldNum.setBounds(102, 279, 273, 20);
+			contentPanel.add(formattedTextFieldNum);
+		}
+		{
+			JLabel lblCep = new JLabel("CEP");
+			lblCep.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblCep.setBounds(10, 245, 30, 21);
+			contentPanel.add(lblCep);
+		}
+		{
+			JFormattedTextField formattedTextFieldRua = new JFormattedTextField();
+			formattedTextFieldRua.setBounds(102, 246, 273, 20);
+			contentPanel.add(formattedTextFieldRua);
+		}
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBounds(0, 370, 436, 41);
