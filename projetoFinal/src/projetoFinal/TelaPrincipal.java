@@ -95,7 +95,9 @@ public class TelaPrincipal extends JFrame {
 		}
 	}
 	
-	private void editRow(String url, String user, String password) {
+	
+	
+	private void editRowLeitor(String url, String user, String password) {
 		int selectedRow = table.getSelectedRow();
 		if(selectedRow >= 0) {
             String id = model.getValueAt(selectedRow, 0).toString();
@@ -135,7 +137,137 @@ public class TelaPrincipal extends JFrame {
 			JOptionPane.showMessageDialog(contentPane, "Nenhuma linha selecionada para edição.", "Aviso!", JOptionPane.WARNING_MESSAGE);
 		}
 	}
-       
+    
+	private void editRowLivro(String url, String user, String password) {
+		int selectedRow = table.getSelectedRow();
+		if(selectedRow >= 0) {
+            String id = model.getValueAt(selectedRow, 0).toString();
+            String titulo = model.getValueAt(selectedRow, 1).toString();
+            String autor = model.getValueAt(selectedRow, 2).toString();
+            String anopublicacao = model.getValueAt(selectedRow, 3).toString();
+            String isbn = model.getValueAt(selectedRow, 4).toString();
+            String edicao = model.getValueAt(selectedRow, 5).toString();
+            String numpaginas = model.getValueAt(selectedRow, 6).toString();
+            String genero = model.getValueAt(selectedRow, 7).toString();
+            String idioma = model.getValueAt(selectedRow, 8).toString();
+            String dataaquisicao = model.getValueAt(selectedRow, 9).toString();
+            
+            EditDialog dialog = new EditDialog(this, id, titulo, autor, anopublicacao, isbn, edicao, numpaginas, genero, idioma, dataaquisicao, dataaquisicao);
+            dialog.setVisible(true);
+            
+            if (dialog.isConfirmed()) {
+                // Atualize os dados no banco de dados
+                try (Connection connection = DriverManager.getConnection(url, user, password)) {
+                    String query = "UPDATE cadastrolivro SET titulo_livro = ?, autor = ?,"
+                    		+ " editora = ?, ano_de_publicação = ?, isbn = ?, edicao = ?,"
+                    		+ " paginas = ?, genero = ?, idioma = ?, data_de_aquisicao = ?,"
+                    		+ " estado_de_conservacao WHERE id = ?";
+                    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                        pstmt.setString(1, dialog.getTitulo());
+                        pstmt.setString(2, dialog.getAutor());
+                        pstmt.setString(3, dialog.getAnoPublicacao());
+                        pstmt.setString(4, dialog.getIsbn());
+                        pstmt.setString(5, dialog.getEdicao());
+                        pstmt.setString(6, id);
+                        pstmt.executeUpdate();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                // Atualize a tabela
+                model.setValueAt(dialog.getNome(), selectedRow, 1);
+                model.setValueAt(dialog.getCpf(), selectedRow, 2);
+                model.setValueAt(dialog.getTelefone(), selectedRow, 3);
+                model.setValueAt(dialog.getEmail(), selectedRow, 4);
+                model.setValueAt(dialog.getEndereco(), selectedRow, 5);
+            }
+		}else {
+			JOptionPane.showMessageDialog(contentPane, "Nenhuma linha selecionada para edição.", "Aviso!", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+	
+	private void editRowUsuario(String url, String user, String password) {
+		int selectedRow = table.getSelectedRow();
+		if(selectedRow >= 0) {
+            String id = model.getValueAt(selectedRow, 0).toString();
+            String nome = model.getValueAt(selectedRow, 1).toString();
+            String cpf = model.getValueAt(selectedRow, 2).toString();
+            String telefone = model.getValueAt(selectedRow, 3).toString();
+            String email = model.getValueAt(selectedRow, 4).toString();
+            String endereco = model.getValueAt(selectedRow, 5).toString();
+            
+            EditDialog dialog = new EditDialog(this, id, nome, cpf, telefone, email, endereco);
+            dialog.setVisible(true);
+            
+            if (dialog.isConfirmed()) {
+                // Atualize os dados no banco de dados
+                try (Connection connection = DriverManager.getConnection(url, user, password)) {
+                    String query = "UPDATE registrodeleitor SET nome = ?, cpf = ?, telefone = ?, email = ?, endereco = ? WHERE id = ?";
+                    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                        pstmt.setString(1, dialog.getNome());
+                        pstmt.setString(2, dialog.getCpf());
+                        pstmt.setString(3, dialog.getTelefone());
+                        pstmt.setString(4, dialog.getEmail());
+                        pstmt.setString(5, dialog.getEndereco());
+                        pstmt.setString(6, id);
+                        pstmt.executeUpdate();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                // Atualize a tabela
+                model.setValueAt(dialog.getNome(), selectedRow, 1);
+                model.setValueAt(dialog.getCpf(), selectedRow, 2);
+                model.setValueAt(dialog.getTelefone(), selectedRow, 3);
+                model.setValueAt(dialog.getEmail(), selectedRow, 4);
+                model.setValueAt(dialog.getEndereco(), selectedRow, 5);
+            }
+		}else {
+			JOptionPane.showMessageDialog(contentPane, "Nenhuma linha selecionada para edição.", "Aviso!", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+	
+	private void editRowEmprestimo(String url, String user, String password) {
+		int selectedRow = table.getSelectedRow();
+		if(selectedRow >= 0) {
+            String id = model.getValueAt(selectedRow, 0).toString();
+            String nome = model.getValueAt(selectedRow, 1).toString();
+            String cpf = model.getValueAt(selectedRow, 2).toString();
+            String telefone = model.getValueAt(selectedRow, 3).toString();
+            String email = model.getValueAt(selectedRow, 4).toString();
+            String endereco = model.getValueAt(selectedRow, 5).toString();
+            
+            EditDialog dialog = new EditDialog(this, id, nome, cpf, telefone, email, endereco);
+            dialog.setVisible(true);
+            
+            if (dialog.isConfirmed()) {
+                // Atualize os dados no banco de dados
+                try (Connection connection = DriverManager.getConnection(url, user, password)) {
+                    String query = "UPDATE registrodeleitor SET nome = ?, cpf = ?, telefone = ?, email = ?, endereco = ? WHERE id = ?";
+                    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                        pstmt.setString(1, dialog.getNome());
+                        pstmt.setString(2, dialog.getCpf());
+                        pstmt.setString(3, dialog.getTelefone());
+                        pstmt.setString(4, dialog.getEmail());
+                        pstmt.setString(5, dialog.getEndereco());
+                        pstmt.setString(6, id);
+                        pstmt.executeUpdate();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                // Atualize a tabela
+                model.setValueAt(dialog.getNome(), selectedRow, 1);
+                model.setValueAt(dialog.getCpf(), selectedRow, 2);
+                model.setValueAt(dialog.getTelefone(), selectedRow, 3);
+                model.setValueAt(dialog.getEmail(), selectedRow, 4);
+                model.setValueAt(dialog.getEndereco(), selectedRow, 5);
+            }
+		}else {
+			JOptionPane.showMessageDialog(contentPane, "Nenhuma linha selecionada para edição.", "Aviso!", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+	
 	private void deleteRow(String url, String user, String password) {
     	int selectedRow = table.getSelectedRow();
 	    if (selectedRow >= 0) {
