@@ -6,10 +6,13 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaCadastroLivro extends JDialog {
 
@@ -19,20 +22,22 @@ public class TelaCadastroLivro extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			TelaCadastroLivro dialog = new TelaCadastroLivro();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			TelaCadastroLivro dialog = new TelaCadastroLivro();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public TelaCadastroLivro() {
+	public TelaCadastroLivro(JFrame parent) {
+		super(parent, "Tela cadastro leitor", true);
+		setLocationRelativeTo(parent);
 		setBounds(100, 100, 450, 400);
 		getContentPane().setLayout(null);
 		contentPanel.setBounds(0, 0, 436, 287);
@@ -165,6 +170,11 @@ public class TelaCadastroLivro extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setBounds(219, 5, 60, 29);
 				cancelButton.setBorder(new LineBorder(new Color(255, 0, 0)));
 				cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 14));

@@ -114,7 +114,7 @@ public class TelaPrincipal extends JFrame {
                     String query = "UPDATE registrodeleitor SET nome = ?, cpf = ?, telefone = ?, email = ?, endereco = ? WHERE id = ?";
                     try (PreparedStatement pstmt = connection.prepareStatement(query)) {
                         pstmt.setString(1, dialog.getNome());
-                        pstmt.setString(2,dialog.getCpf());
+                        pstmt.setString(2, dialog.getCpf());
                         pstmt.setString(3, dialog.getTelefone());
                         pstmt.setString(4, dialog.getEmail());
                         pstmt.setString(5, dialog.getEndereco());
@@ -254,8 +254,8 @@ public class TelaPrincipal extends JFrame {
 		btnNewButtonNovoLeitor.setBackground(new Color(43, 167, 208));
 		btnNewButtonNovoLeitor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaCadastroLeitor cadastroleitor = new TelaCadastroLeitor(TelaPrincipal.this);
-				cadastroleitor.setVisible(true);
+				TelaCadastroLivro cadastrolivro = new TelaCadastroLivro(TelaPrincipal.this);
+				cadastrolivro.setVisible(true);
 				
 				contentPane.repaint();
 				contentPane.revalidate();
@@ -313,6 +313,11 @@ public class TelaPrincipal extends JFrame {
 		btnNewButton.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, new Color(0, 145, 145)));
 		
 		JButton btnNewButton_1 = new JButton("Cadastro de livro\r\n");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tabelaLivro();
+			}
+		});
 		btnNewButton_1.setBounds(new Rectangle(8, 190, 153, 19));
 		btnNewButton_1.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, new Color(0, 145, 145)));
 		btnNewButton_1.setAlignmentX(0.5f);
