@@ -1,32 +1,39 @@
 package projetoFinal;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.text.MaskFormatter;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.text.MaskFormatter;
 
 public class TelaCadastroLeitor extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 
-//	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			TelaCadastroLeitor dialog = new TelaCadastroLeitor(null);
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+			dialog.setLocationRelativeTo(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public TelaCadastroLeitor(JFrame parent) {
 		super(parent, "Tela cadastro leitor", true);
@@ -77,7 +84,7 @@ public class TelaCadastroLeitor extends JDialog {
 		{
 			JLabel lblNmero = new JLabel("Número");
 			lblNmero.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lblNmero.setBounds(10, 277, 49, 21);
+			lblNmero.setBounds(10, 277, 60, 21);
 			contentPanel.add(lblNmero);
 		}
 		{

@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -17,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,8 +31,6 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.ImageIcon;
-import java.awt.Toolkit;
 
 public class TelaPrincipal extends JFrame {
 
@@ -162,7 +162,6 @@ public class TelaPrincipal extends JFrame {
 	
 	public void tabelaLeitor() {
 		
-		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(216, 216, 216));
 		panel_1.setBounds(185, 133, 859, 417);
@@ -179,7 +178,6 @@ public class TelaPrincipal extends JFrame {
 		model.addColumn("Endereço");
 		
 		table = new JTable(model);
-//		scrollPane.setViewportView(table);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, 45, 859, 372);
@@ -217,7 +215,69 @@ public class TelaPrincipal extends JFrame {
 		contentPane.repaint();
 		contentPane.revalidate();
 	}
+	
+	public void tabelaLivro() {
 
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(216, 216, 216));
+		panel_1.setBounds(185, 133, 859, 417);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		
+		model = new DefaultTableModel();
+		model.addColumn("ID");
+		model.addColumn("Titulo");
+		model.addColumn("Autor(es)");
+		model.addColumn("Ano de publicação");
+		model.addColumn("ISBN");
+		model.addColumn("Edição");
+		model.addColumn("Num_Páginas");
+		model.addColumn("Gênero");
+		model.addColumn("Idioma");;
+		model.addColumn("Data_de_aquisição");
+		model.addColumn("Estado_de_conservação");
+		
+		table = new JTable(model);
+//		scrollPane.setViewportView(table);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(0, 45, 859, 372);
+		panel_1.add(scrollPane);
+		
+		registerTable(url, user, password);
+		
+		JButton btnNewButtonNovoLeitor = new JButton("Novo livro");
+		btnNewButtonNovoLeitor.setBounds(0, 11, 96, 23);
+		panel_1.add(btnNewButtonNovoLeitor);
+		btnNewButtonNovoLeitor.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewButtonNovoLeitor.setBackground(new Color(43, 167, 208));
+		btnNewButtonNovoLeitor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroLeitor cadastroleitor = new TelaCadastroLeitor(TelaPrincipal.this);
+				cadastroleitor.setVisible(true);
+				
+				contentPane.repaint();
+				contentPane.revalidate();
+				
+			}
+		});
+		
+		JButton btnNewButtonExcluir = new JButton("Excluir\r\n");
+		btnNewButtonExcluir.setBackground(new Color(255, 0, 0));
+		btnNewButtonExcluir.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewButtonExcluir.setBounds(770, 11, 89, 23);
+		panel_1.add(btnNewButtonExcluir);
+		
+		JButton btnNewButtonEdit = new JButton("Editar\r\n");
+		btnNewButtonEdit.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewButtonEdit.setBounds(671, 11, 89, 23);
+		panel_1.add(btnNewButtonEdit);
+		
+		contentPane.repaint();
+		contentPane.revalidate();
+	}
+	
 	/**
 	 * Create the frame.
 	 */
