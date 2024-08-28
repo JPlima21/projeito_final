@@ -35,6 +35,15 @@ public class TelaCadastroLeitor extends JDialog {
 		}
 	}
 	
+	private static boolean verificarCamposVazios(JFormattedTextField... campos) {
+        for (JFormattedTextField campo : campos) {
+            if (campo.getText().trim().isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+	}
+	
 	public TelaCadastroLeitor(JFrame parent) {
 		super(parent, "Tela cadastro leitor", true);
 		setLocationRelativeTo(parent);
@@ -94,6 +103,12 @@ public class TelaCadastroLeitor extends JDialog {
 			contentPanel.add(lblBairro);
 			
 		}
+		{
+			JLabel lblCep = new JLabel("CEP");
+			lblCep.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblCep.setBounds(10, 245, 30, 21);
+			contentPanel.add(lblCep);
+		}
 		
 	try {
 		MaskFormatter maskcpf,maskphone,maskcep;
@@ -101,58 +116,57 @@ public class TelaCadastroLeitor extends JDialog {
 		maskcpf.setPlaceholderCharacter('_');
 		maskphone = new MaskFormatter("(##) #####-####");
 		maskphone.setPlaceholderCharacter('_');
+		maskcep = new MaskFormatter("#####-###");
+		maskcep.setPlaceholderCharacter('_');
+		
 		
 		
 		{
+			
+			
+			
 			JFormattedTextField formattedTextFieldNome = new JFormattedTextField();
 			formattedTextFieldNome.setBounds(102, 27, 273, 20);
 			contentPanel.add(formattedTextFieldNome);
-		}
-		{
+		
+		
 			JFormattedTextField formattedTextFieldCpf = new JFormattedTextField(maskcpf);
 			formattedTextFieldCpf.setBounds(102, 58, 273, 20);
 			contentPanel.add(formattedTextFieldCpf);
-		}
-		{
+		
+		
 			JFormattedTextField formattedTextFieldPhone = new JFormattedTextField(maskphone);
 			formattedTextFieldPhone.setBounds(102, 89, 273, 20);
 			contentPanel.add(formattedTextFieldPhone);
-		}
-		{
+		
+		
 			JFormattedTextField formattedTextFieldEmail = new JFormattedTextField();
 			formattedTextFieldEmail.setBounds(102, 120, 273, 20);
 			contentPanel.add(formattedTextFieldEmail);
-		}
-		{
+		
+		
 			JFormattedTextField formattedTextFieldBairro = new JFormattedTextField();
 			formattedTextFieldBairro.setBounds(102, 183, 273, 20);
 			contentPanel.add(formattedTextFieldBairro);
-		}
-		{
+		
+		
 			JFormattedTextField formattedTextFieldRua = new JFormattedTextField();
 			formattedTextFieldRua.setBounds(102, 215, 273, 20);
 			contentPanel.add(formattedTextFieldRua);
-		}
-		{
+		
+		
 			JFormattedTextField formattedTextFieldNum = new JFormattedTextField();
 			formattedTextFieldNum.setBounds(102, 279, 273, 20);
 			contentPanel.add(formattedTextFieldNum);
-		}
-		{
-			JFormattedTextField formattedTextFieldCep = new JFormattedTextField();
+		
+		
+			JFormattedTextField formattedTextFieldCep = new JFormattedTextField(maskcep);
 			formattedTextFieldCep.setBounds(102, 246, 273, 20);
 			contentPanel.add(formattedTextFieldCep);
-		}
-	} catch (ParseException e) {
-		e.printStackTrace();
-	}	
-		{
-			JLabel lblCep = new JLabel("CEP");
-			lblCep.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			lblCep.setBounds(10, 245, 30, 21);
-			contentPanel.add(lblCep);
-		}
-		{
+			
+			boolean verificacao = verificarCamposVazios(formattedTextFieldNome, formattedTextFieldCpf, formattedTextFieldPhone, formattedTextFieldEmail, formattedTextFieldCep, formattedTextFieldBairro, formattedTextFieldRua, formattedTextFieldNum);
+		
+		
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBounds(0, 370, 436, 41);
 			getContentPane().add(buttonPane);
@@ -163,6 +177,13 @@ public class TelaCadastroLeitor extends JDialog {
 				okButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				okButton.setBorder(new LineBorder(new Color(0, 255, 0)));
 				okButton.setActionCommand("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(verificacao = false) {
+							
+						}
+					}
+				});
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
@@ -180,7 +201,15 @@ public class TelaCadastroLeitor extends JDialog {
 				});
 				buttonPane.add(cancelButton);
 			}
+		
+		
+		
 		}
+		
+	} catch (ParseException e) {
+		e.printStackTrace();
+	}	
+		
 	}
 }
 

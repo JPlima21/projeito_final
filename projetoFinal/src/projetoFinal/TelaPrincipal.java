@@ -61,8 +61,9 @@ public class TelaPrincipal extends JFrame {
 			String url = "jdbc:postgresql://localhost:5432/Projeto_Biblioteca";
 			String user = "postgres";
 			String password = "postgres";
-			
-	private void registerTable(String url, String user, String password) {
+	
+	//metodos para para 		
+	private void registerTableLeitor(String url, String user, String password) {
 		Connection connection = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -95,8 +96,114 @@ public class TelaPrincipal extends JFrame {
 		}
 	}
 	
+	private void registerTableLivro(String url, String user, String password) {
+		Connection connection = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+            connection = DriverManager.getConnection(url, user, password);
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM cadastrolivro");
+            
+            while(rs.next()) {
+            	String id = rs.getString("id");
+            	String titulo = rs.getString("titulo_livro");
+            	String autor = rs.getString("autor");
+            	String editora = rs.getString("editora");
+            	String anoPublicacao = rs.getString("ano_de_publicação");
+            	String isbn = rs.getString("isbn");
+            	String edicao = rs.getString("edicao");
+            	String paginas = rs.getString("paginas");
+            	String idioma = rs.getString("idioma");
+            	String dataAquisicao = rs.getString("data_de_aquisicao");
+            	String estadoConservacao = rs.getString("estado_de_conservacao");
+            	model.addRow(new Object[] {id, titulo, autor, editora, anoPublicacao, isbn, edicao, paginas, idioma, dataAquisicao, estadoConservacao});
+            }
+            
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				if(connection != null) connection.close(); 
+			}catch (SQLException e) {
+				JOptionPane.showMessageDialog(contentPane, "Não foi posivel se conectar ao banco de dados", "Aviso!", JOptionPane.WARNING_MESSAGE);
+				e.printStackTrace();
+			}
+		}
+	}
 	
+	private void registerTableUsuario(String url, String user, String password) {
+		Connection connection = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+            connection = DriverManager.getConnection(url, user, password);
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM cadastrousuario");
+            
+            while(rs.next()) {
+            	String id = rs.getString("id");
+            	String nomeuser = rs.getString("nome");
+            	String usuario = rs.getString("usuario");
+            	String senha = rs.getString("senha");
+            	String nivelAcesso = rs.getString("nivel_de_acesso");
+   
+            	model.addRow(new Object[] {id, nomeuser, usuario, senha, nivelAcesso});
+            }
+            
+		}catch (SQLException e) {
+			JOptionPane.showMessageDialog(contentPane, "Não foi posivel se conectar ao banco de dados", "Aviso!", JOptionPane.WARNING_MESSAGE);
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				if(connection != null) connection.close(); 
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
+	private void registerTableEmprestimo(String url, String user, String password) {
+		Connection connection = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+            connection = DriverManager.getConnection(url, user, password);
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM registrodeleitor");
+            
+            while(rs.next()) {
+            	String id = rs.getString("id");
+            	String nomeuser = rs.getString("nome");
+            	String usuario = rs.getString("cpf");
+            	String senha = rs.getString("telefone");
+            	String nivelAcesso = rs.getString("email");
+   
+            	model.addRow(new Object[] {id, nomeuser, usuario, senha, nivelAcesso});
+            }
+            
+		}catch (SQLException e) {
+			JOptionPane.showMessageDialog(contentPane, "Não foi posivel se conectar ao banco de dados", "Aviso!", JOptionPane.WARNING_MESSAGE);
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				if(connection != null) connection.close(); 
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	//metodos para editar as linhas da tabela
 	private void editRowLeitor(String url, String user, String password) {
 		int selectedRow = table.getSelectedRow();
 		if(selectedRow >= 0) {
@@ -107,7 +214,8 @@ public class TelaPrincipal extends JFrame {
             String email = model.getValueAt(selectedRow, 4).toString();
             String endereco = model.getValueAt(selectedRow, 5).toString();
             
-            EditDialog dialog = new EditDialog(this, id, nome, cpf, telefone, email, endereco);
+            EditDialog dialog = new EditDialog(this);
+            dialog.leitorEditDialog(id, nome, cpf, telefone, email, endereco);
             dialog.setVisible(true);
             
             if (dialog.isConfirmed()) {
@@ -151,8 +259,10 @@ public class TelaPrincipal extends JFrame {
             String genero = model.getValueAt(selectedRow, 7).toString();
             String idioma = model.getValueAt(selectedRow, 8).toString();
             String dataaquisicao = model.getValueAt(selectedRow, 9).toString();
+            String estadoConservacao = model.getValueAt(selectedRow, 10).toString();
             
-            EditDialog dialog = new EditDialog(this, id, titulo, autor, anopublicacao, isbn, edicao, numpaginas, genero, idioma, dataaquisicao, dataaquisicao);
+            EditDialog dialog = new EditDialog(this);
+            dialog.livroEditDialog(id, titulo, autor, anopublicacao, isbn, edicao, numpaginas, genero, idioma, dataaquisicao, estadoConservacao);
             dialog.setVisible(true);
             
             if (dialog.isConfirmed()) {
@@ -168,18 +278,25 @@ public class TelaPrincipal extends JFrame {
                         pstmt.setString(3, dialog.getAnoPublicacao());
                         pstmt.setString(4, dialog.getIsbn());
                         pstmt.setString(5, dialog.getEdicao());
-                        pstmt.setString(6, id);
+                        pstmt.setString(6, dialog.getNumPaginas());
+                        pstmt.setString(7, dialog.getGenero());
+                        pstmt.setString(8, dialog.getIdioma());
+                        pstmt.setString(9, dialog.getDataAquisicao());
                         pstmt.executeUpdate();
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
                 // Atualize a tabela
-                model.setValueAt(dialog.getNome(), selectedRow, 1);
-                model.setValueAt(dialog.getCpf(), selectedRow, 2);
-                model.setValueAt(dialog.getTelefone(), selectedRow, 3);
-                model.setValueAt(dialog.getEmail(), selectedRow, 4);
-                model.setValueAt(dialog.getEndereco(), selectedRow, 5);
+                model.setValueAt(dialog.getTitulo(), selectedRow, 1);
+                model.setValueAt(dialog.getAutor(), selectedRow, 2);
+                model.setValueAt(dialog.getAnoPublicacao(), selectedRow, 3);
+                model.setValueAt(dialog.getIsbn(), selectedRow, 4);
+                model.setValueAt(dialog.getEdicao(), selectedRow, 5);
+                model.setValueAt(dialog.getNumPaginas(), selectedRow, 6);
+                model.setValueAt(dialog.getGenero(), selectedRow, 7);
+                model.setValueAt(dialog.getIdioma(), selectedRow, 8);
+                model.setValueAt(dialog.getDataAquisicao(), selectedRow, 9);
             }
 		}else {
 			JOptionPane.showMessageDialog(contentPane, "Nenhuma linha selecionada para edição.", "Aviso!", JOptionPane.WARNING_MESSAGE);
@@ -191,12 +308,12 @@ public class TelaPrincipal extends JFrame {
 		if(selectedRow >= 0) {
             String id = model.getValueAt(selectedRow, 0).toString();
             String nome = model.getValueAt(selectedRow, 1).toString();
-            String cpf = model.getValueAt(selectedRow, 2).toString();
-            String telefone = model.getValueAt(selectedRow, 3).toString();
-            String email = model.getValueAt(selectedRow, 4).toString();
-            String endereco = model.getValueAt(selectedRow, 5).toString();
+            String usuario = model.getValueAt(selectedRow, 2).toString();
+            String senha = model.getValueAt(selectedRow, 3).toString();
+            String nivelAcesso = model.getValueAt(selectedRow, 4).toString();
             
-            EditDialog dialog = new EditDialog(this, id, nome, cpf, telefone, email, endereco);
+            EditDialog dialog = new EditDialog(this);
+            dialog.usuarioEditDialog(id,nome, usuario, senha, nivelAcesso);
             dialog.setVisible(true);
             
             if (dialog.isConfirmed()) {
@@ -228,6 +345,7 @@ public class TelaPrincipal extends JFrame {
 	}
 	
 	private void editRowEmprestimo(String url, String user, String password) {
+
 		int selectedRow = table.getSelectedRow();
 		if(selectedRow >= 0) {
             String id = model.getValueAt(selectedRow, 0).toString();
@@ -237,8 +355,9 @@ public class TelaPrincipal extends JFrame {
             String email = model.getValueAt(selectedRow, 4).toString();
             String endereco = model.getValueAt(selectedRow, 5).toString();
             
-            EditDialog dialog = new EditDialog(this, id, nome, cpf, telefone, email, endereco);
-            dialog.setVisible(true);
+            EditDialog dialog = new EditDialog(this);
+            //dialog.
+            //dialog.setVisible(true);
             
             if (dialog.isConfirmed()) {
                 // Atualize os dados no banco de dados
@@ -268,6 +387,7 @@ public class TelaPrincipal extends JFrame {
 		}
 	}
 	
+	//metodo para deletar linhas da tabela
 	private void deleteRow(String url, String user, String password) {
     	int selectedRow = table.getSelectedRow();
 	    if (selectedRow >= 0) {
@@ -292,14 +412,10 @@ public class TelaPrincipal extends JFrame {
 	    
 	 }           
 	
-	public void tabelaLeitor() {
+	//metodos para criar as tabelas
+	public void tabelaLeitor(JPanel panel_1) {
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(216, 216, 216));
-		panel_1.setBounds(185, 133, 859, 417);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
-		
+		panel_1.removeAll();
 		
 		model = new DefaultTableModel();
 		model.addColumn("ID");
@@ -315,7 +431,7 @@ public class TelaPrincipal extends JFrame {
 		scrollPane.setBounds(0, 45, 859, 372);
 		panel_1.add(scrollPane);
 		
-		registerTable(url, user, password);
+		registerTableLeitor(url, user, password);
 		
 		JButton btnNewButtonNovoLeitor = new JButton("Novo leitor");
 		btnNewButtonNovoLeitor.setBounds(0, 11, 96, 23);
@@ -340,6 +456,11 @@ public class TelaPrincipal extends JFrame {
 		panel_1.add(btnNewButtonExcluir);
 		
 		JButton btnNewButtonEdit = new JButton("Editar\r\n");
+		btnNewButtonEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editRowLeitor(url, user, password);
+			}
+		});
 		btnNewButtonEdit.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnNewButtonEdit.setBounds(671, 11, 89, 23);
 		panel_1.add(btnNewButtonEdit);
@@ -348,14 +469,9 @@ public class TelaPrincipal extends JFrame {
 		contentPane.revalidate();
 	}
 	
-	public void tabelaLivro() {
+	public void tabelaLivro(JPanel panel_1) {
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(216, 216, 216));
-		panel_1.setBounds(185, 133, 859, 417);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
-		
+		panel_1.removeAll();
 		
 		model = new DefaultTableModel();
 		model.addColumn("ID");
@@ -377,7 +493,65 @@ public class TelaPrincipal extends JFrame {
 		scrollPane.setBounds(0, 45, 859, 372);
 		panel_1.add(scrollPane);
 		
-		registerTable(url, user, password);
+		registerTableLivro(url, user, password);
+		
+		JButton btnNewButtonNovoLeitor = new JButton("Novo livro");
+		btnNewButtonNovoLeitor.setBounds(0, 11, 96, 23);
+		panel_1.add(btnNewButtonNovoLeitor);
+		btnNewButtonNovoLeitor.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewButtonNovoLeitor.setBackground(new Color(43, 167, 208));
+		btnNewButtonNovoLeitor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroLivro cadastrolivro = new TelaCadastroLivro(TelaPrincipal.this);
+				cadastrolivro.setVisible(true);
+				
+				contentPane.repaint();
+				contentPane.revalidate();
+				
+			}
+		});
+		
+		JButton btnNewButtonExcluir = new JButton("Excluir\r\n");
+		btnNewButtonExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deleteRow(url, user, password);
+				
+			}
+		});
+		btnNewButtonExcluir.setBackground(new Color(255, 0, 0));
+		btnNewButtonExcluir.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewButtonExcluir.setBounds(770, 11, 89, 23);
+		panel_1.add(btnNewButtonExcluir);
+		
+		JButton btnNewButtonEdit = new JButton("Editar\r\n");
+		btnNewButtonEdit.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewButtonEdit.setBounds(671, 11, 89, 23);
+		panel_1.add(btnNewButtonEdit);
+		
+		contentPane.repaint();
+		contentPane.revalidate();
+	}
+	
+	public void tabelaUsuario(JPanel panel_1) {
+
+		panel_1.removeAll();
+		
+		model = new DefaultTableModel();
+		model.addColumn("ID");
+		model.addColumn("Nome");
+		model.addColumn("Usúario");
+		model.addColumn("Senha");
+		model.addColumn("Nivel de acesso");
+		
+		
+		table = new JTable(model);
+//		scrollPane.setViewportView(table);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(0, 45, 859, 372);
+		panel_1.add(scrollPane);
+		
+		registerTableUsuario(url, user, password);
 		
 		JButton btnNewButtonNovoLeitor = new JButton("Novo livro");
 		btnNewButtonNovoLeitor.setBounds(0, 11, 96, 23);
@@ -410,6 +584,57 @@ public class TelaPrincipal extends JFrame {
 		contentPane.revalidate();
 	}
 	
+	public void tabelaemprestimo(JPanel panel_1) {
+
+		panel_1.removeAll();
+		
+		model = new DefaultTableModel();
+		model.addColumn("ID");
+		model.addColumn("Nome");
+		model.addColumn("CPF");
+		model.addColumn("Data");
+		model.addColumn("Nivel de acesso");
+		
+		
+		table = new JTable(model);
+//		scrollPane.setViewportView(table);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(0, 45, 859, 372);
+		panel_1.add(scrollPane);
+		
+		registerTableUsuario(url, user, password);
+		
+		JButton btnNewButtonNovoLeitor = new JButton("Novo livro");
+		btnNewButtonNovoLeitor.setBounds(0, 11, 96, 23);
+		panel_1.add(btnNewButtonNovoLeitor);
+		btnNewButtonNovoLeitor.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewButtonNovoLeitor.setBackground(new Color(43, 167, 208));
+		btnNewButtonNovoLeitor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroLivro cadastrolivro = new TelaCadastroLivro(TelaPrincipal.this);
+				cadastrolivro.setVisible(true);
+				
+				contentPane.repaint();
+				contentPane.revalidate();
+				
+			}
+		});
+		
+		JButton btnNewButtonExcluir = new JButton("Excluir\r\n");
+		btnNewButtonExcluir.setBackground(new Color(255, 0, 0));
+		btnNewButtonExcluir.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewButtonExcluir.setBounds(770, 11, 89, 23);
+		panel_1.add(btnNewButtonExcluir);
+		
+		JButton btnNewButtonEdit = new JButton("Editar\r\n");
+		btnNewButtonEdit.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewButtonEdit.setBounds(671, 11, 89, 23);
+		panel_1.add(btnNewButtonEdit);
+		
+		contentPane.repaint();
+		contentPane.revalidate();
+	}
 	/**
 	 * Create the frame.
 	 */
@@ -430,13 +655,19 @@ public class TelaPrincipal extends JFrame {
 		panel.setBounds(0, 0, 175, 561);
 		panel.setBackground(new Color(43, 167, 208));
 		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(216, 216, 216));
+		panel_1.setBounds(185, 133, 859, 417);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(8, 128, 153, 14);
 		
 		JButton btnNewButton = new JButton("Cadastro de usúario");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				tabelaUsuario(panel_1);
 				
 			}
 		});
@@ -447,7 +678,7 @@ public class TelaPrincipal extends JFrame {
 		JButton btnNewButton_1 = new JButton("Cadastro de livro\r\n");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tabelaLivro();
+				tabelaLivro(panel_1);
 			}
 		});
 		btnNewButton_1.setBounds(new Rectangle(8, 190, 153, 19));
@@ -457,7 +688,7 @@ public class TelaPrincipal extends JFrame {
 		JButton btnNewButton_1_1 = new JButton("Cadastro de leitor\r\n\r\n");
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tabelaLeitor();
+				tabelaLeitor(panel_1);
 			}
 		});
 		btnNewButton_1_1.setBounds(new Rectangle(8, 227, 153, 19));
