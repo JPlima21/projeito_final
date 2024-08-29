@@ -584,16 +584,16 @@ public class TelaPrincipal extends JFrame {
 		contentPane.revalidate();
 	}
 	
-	public void tabelaemprestimo(JPanel panel_1) {
+	public void tabelaEmprestimo(JPanel panel_1) {
 
 		panel_1.removeAll();
 		
 		model = new DefaultTableModel();
 		model.addColumn("ID");
-		model.addColumn("Nome");
-		model.addColumn("CPF");
-		model.addColumn("Data");
-		model.addColumn("Nivel de acesso");
+		model.addColumn("Livro");
+		model.addColumn("Autor");
+		model.addColumn("Estoque");
+		model.addColumn("Leitor");
 		
 		
 		table = new JTable(model);
@@ -663,6 +663,7 @@ public class TelaPrincipal extends JFrame {
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(8, 128, 153, 14);
+		panel.add(separator);
 		
 		JButton btnNewButton = new JButton("Cadastro de usúario");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -674,6 +675,7 @@ public class TelaPrincipal extends JFrame {
 		btnNewButton.setBounds(new Rectangle(8, 153, 153, 19));
 		btnNewButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnNewButton.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, new Color(0, 145, 145)));
+		panel.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Cadastro de livro\r\n");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -684,7 +686,7 @@ public class TelaPrincipal extends JFrame {
 		btnNewButton_1.setBounds(new Rectangle(8, 190, 153, 19));
 		btnNewButton_1.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, new Color(0, 145, 145)));
 		btnNewButton_1.setAlignmentX(0.5f);
-		
+		panel.add(btnNewButton_1);
 		JButton btnNewButton_1_1 = new JButton("Cadastro de leitor\r\n\r\n");
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -694,16 +696,18 @@ public class TelaPrincipal extends JFrame {
 		btnNewButton_1_1.setBounds(new Rectangle(8, 227, 153, 19));
 		btnNewButton_1_1.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, new Color(0, 145, 145)));
 		btnNewButton_1_1.setAlignmentX(0.5f);
+		panel.add(btnNewButton_1_1);
 		
 		JButton btnNewButton_1_2 = new JButton("Cadastro de emprestimo");
+		btnNewButton_1_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tabelaEmprestimo(panel_1);
+			}
+		});
 		btnNewButton_1_2.setBounds(new Rectangle(8, 264, 153, 19));
 		btnNewButton_1_2.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, new Color(0, 145, 145)));
 		btnNewButton_1_2.setAlignmentX(0.5f);
 		panel.setLayout(null);
-		panel.add(separator);
-		panel.add(btnNewButton);
-		panel.add(btnNewButton_1);
-		panel.add(btnNewButton_1_1);
 		panel.add(btnNewButton_1_2);
 		contentPane.add(panel);
 		

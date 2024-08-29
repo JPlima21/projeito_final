@@ -5,12 +5,15 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -20,7 +23,8 @@ public class TelaCadastroLeitor extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-
+	private static List<String> camposVazios = new ArrayList<>() ;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -38,10 +42,13 @@ public class TelaCadastroLeitor extends JDialog {
 	private static boolean verificarCamposVazios(JFormattedTextField... campos) {
         for (JFormattedTextField campo : campos) {
             if (campo.getText().trim().isEmpty()) {
-                return false;
+            	 camposVazios.add(campo.getName());
             }
         }
-        return true;
+        if(camposVazios.size() == 0) {
+        	return true;
+        }
+        return false;
 	}
 	
 	public TelaCadastroLeitor(JFrame parent) {
@@ -126,46 +133,55 @@ public class TelaCadastroLeitor extends JDialog {
 			
 			
 			JFormattedTextField formattedTextFieldNome = new JFormattedTextField();
+			formattedTextFieldNome.setName("Nome");
 			formattedTextFieldNome.setBounds(102, 27, 273, 20);
 			contentPanel.add(formattedTextFieldNome);
 		
 		
 			JFormattedTextField formattedTextFieldCpf = new JFormattedTextField(maskcpf);
+			formattedTextFieldCpf.setName("CPF");
 			formattedTextFieldCpf.setBounds(102, 58, 273, 20);
 			contentPanel.add(formattedTextFieldCpf);
 		
 		
 			JFormattedTextField formattedTextFieldPhone = new JFormattedTextField(maskphone);
+			formattedTextFieldPhone.setName("Telefone");
 			formattedTextFieldPhone.setBounds(102, 89, 273, 20);
 			contentPanel.add(formattedTextFieldPhone);
 		
 		
 			JFormattedTextField formattedTextFieldEmail = new JFormattedTextField();
+			formattedTextFieldEmail.setName("Email");
 			formattedTextFieldEmail.setBounds(102, 120, 273, 20);
 			contentPanel.add(formattedTextFieldEmail);
 		
 		
 			JFormattedTextField formattedTextFieldBairro = new JFormattedTextField();
+			formattedTextFieldBairro.setName("Bairro");
 			formattedTextFieldBairro.setBounds(102, 183, 273, 20);
 			contentPanel.add(formattedTextFieldBairro);
 		
 		
 			JFormattedTextField formattedTextFieldRua = new JFormattedTextField();
+			formattedTextFieldRua.setName("Rua");
 			formattedTextFieldRua.setBounds(102, 215, 273, 20);
 			contentPanel.add(formattedTextFieldRua);
 		
 		
 			JFormattedTextField formattedTextFieldNum = new JFormattedTextField();
+			formattedTextFieldNum.setName("Número");
 			formattedTextFieldNum.setBounds(102, 279, 273, 20);
 			contentPanel.add(formattedTextFieldNum);
 		
 		
 			JFormattedTextField formattedTextFieldCep = new JFormattedTextField(maskcep);
+			formattedTextFieldCep.setName("CEP");
 			formattedTextFieldCep.setBounds(102, 246, 273, 20);
 			contentPanel.add(formattedTextFieldCep);
 			
-			boolean verificacao = verificarCamposVazios(formattedTextFieldNome, formattedTextFieldCpf, formattedTextFieldPhone, formattedTextFieldEmail, formattedTextFieldCep, formattedTextFieldBairro, formattedTextFieldRua, formattedTextFieldNum);
-		
+			boolean verificacao = verificarCamposVazios(formattedTextFieldNome, formattedTextFieldCpf, formattedTextFieldPhone, 
+														formattedTextFieldEmail, formattedTextFieldCep, formattedTextFieldBairro, 
+														formattedTextFieldRua, formattedTextFieldNum);
 		
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBounds(0, 370, 436, 41);
@@ -179,7 +195,11 @@ public class TelaCadastroLeitor extends JDialog {
 				okButton.setActionCommand("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(verificacao = false) {
+						if(verificacao == true) {
+							JOptionPane.showMessageDialog(contentPanel, "Informações validas!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+							
+						}else {
+							JOptionPane.showMessageDialog(contentPanel, "Por favor verifique o campo(s):" + camposVazios, "Aviso!", JOptionPane.INFORMATION_MESSAGE);
 							
 						}
 					}
