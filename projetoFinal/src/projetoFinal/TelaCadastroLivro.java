@@ -11,7 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.text.MaskFormatter;
+
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 
 public class TelaCadastroLivro extends JDialog {
@@ -22,19 +25,35 @@ public class TelaCadastroLivro extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		try {
-//			TelaCadastroLivro dialog = new TelaCadastroLivro();
-//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			dialog.setVisible(true);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	public static void main(String[] args) {
+		try {
+			TelaCadastroLivro dialog = new TelaCadastroLivro(null);
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	static StringBuilder camposVazios = new StringBuilder();
 
-	/**
-	 * Create the dialog.
-	 */
+	private static boolean verificarCamposVazios(JFormattedTextField... campos) {
+		//camposVazios.setLength(0);
+        for (JFormattedTextField campo : campos) {
+        	String clearText = campo.getText().replaceAll("[^\\d]", "");
+            if (clearText.trim().isEmpty()) {
+            	if (camposVazios.length() > 0) {
+                    camposVazios.append(", ");
+                }
+            	 camposVazios.append(campo.getName());
+            }
+        }
+        if(camposVazios.isEmpty()) {
+        	return true;
+        }
+        return false;
+	}
+	
 	public TelaCadastroLivro(JFrame parent) {
 		super(parent, "Tela cadastro leitor", true);
 		setLocationRelativeTo(parent);
@@ -105,52 +124,73 @@ public class TelaCadastroLivro extends JDialog {
 			contentPanel.add(lblEstadoDeConservao);
 		}
 		
+		MaskFormatter maskAnoPublic, maskIsbn, maskAquisicao, maskConservacao;
+		try {
+			maskAnoPublic = new MaskFormatter("##/##/####");
+			maskAnoPublic.setPlaceholderCharacter('_');
+			maskIsbn = new MaskFormatter("###-#-###-####-#");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		JFormattedTextField formattedTextField = new JFormattedTextField();
+		formattedTextField.setName("Titulo");
 		formattedTextField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		formattedTextField.setBounds(163, 8, 230, 19);
 		contentPanel.add(formattedTextField);
 		
 		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
+		formattedTextField_1.setName("Autor");
 		formattedTextField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		formattedTextField_1.setBounds(163, 37, 230, 19);
 		contentPanel.add(formattedTextField_1);
 		
 		JFormattedTextField formattedTextField_2 = new JFormattedTextField();
+		formattedTextField_2.setName("anoPublição");
 		formattedTextField_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		formattedTextField_2.setBounds(163, 62, 230, 19);
 		contentPanel.add(formattedTextField_2);
 		
 		JFormattedTextField formattedTextField_3 = new JFormattedTextField();
+		formattedTextField_3.setName("isbn");
 		formattedTextField_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		formattedTextField_3.setBounds(163, 89, 230, 19);
 		contentPanel.add(formattedTextField_3);
 		
 		JFormattedTextField formattedTextField_4 = new JFormattedTextField();
+		formattedTextField_4.setName("edicao");
 		formattedTextField_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		formattedTextField_4.setBounds(163, 116, 230, 19);
 		contentPanel.add(formattedTextField_4);
 		
 		JFormattedTextField formattedTextField_5 = new JFormattedTextField();
+		formattedTextField_5.setName("numPaginas");
 		formattedTextField_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		formattedTextField_5.setBounds(163, 143, 230, 19);
 		contentPanel.add(formattedTextField_5);
 		
 		JFormattedTextField formattedTextField_6 = new JFormattedTextField();
+		formattedTextField_6.setName("genero");
 		formattedTextField_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		formattedTextField_6.setBounds(163, 170, 230, 19);
 		contentPanel.add(formattedTextField_6);
 		
 		JFormattedTextField formattedTextField_7 = new JFormattedTextField();
+		formattedTextField_7.setName("idioma");
 		formattedTextField_7.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		formattedTextField_7.setBounds(163, 197, 230, 19);
 		contentPanel.add(formattedTextField_7);
 		
 		JFormattedTextField formattedTextField_8 = new JFormattedTextField();
+		formattedTextField_8.setName("dataAquisicao");
 		formattedTextField_8.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		formattedTextField_8.setBounds(163, 224, 230, 19);
 		contentPanel.add(formattedTextField_8);
 		
 		JFormattedTextField formattedTextField_9 = new JFormattedTextField();
+		formattedTextField_9.setName("estadoConservacao");
 		formattedTextField_9.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		formattedTextField_9.setBounds(163, 254, 230, 19);
 		contentPanel.add(formattedTextField_9);
