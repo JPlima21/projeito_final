@@ -235,9 +235,6 @@ public class TelaCadastroLeitor extends JDialog {
 				});
 				buttonPane.add(cancelButton);
 			}
-		
-		
-		
 		}
 		
 	} catch (ParseException e) {

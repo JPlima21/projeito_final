@@ -8,6 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -124,76 +125,80 @@ public class TelaCadastroLivro extends JDialog {
 			contentPanel.add(lblEstadoDeConservao);
 		}
 		
-		MaskFormatter maskAnoPublic, maskIsbn, maskAquisicao, maskConservacao;
+		
 		try {
+			MaskFormatter maskAnoPublic, maskIsbn, maskAquisicao;
 			maskAnoPublic = new MaskFormatter("##/##/####");
 			maskAnoPublic.setPlaceholderCharacter('_');
 			maskIsbn = new MaskFormatter("###-#-###-####-#");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			maskIsbn.setPlaceholderCharacter('_');
+			maskAquisicao = new MaskFormatter("##/##/####");
+			maskAquisicao.setPlaceholderCharacter('_');
 		
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setName("Titulo");
-		formattedTextField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		formattedTextField.setBounds(163, 8, 230, 19);
-		contentPanel.add(formattedTextField);
 		
-		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
-		formattedTextField_1.setName("Autor");
-		formattedTextField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		formattedTextField_1.setBounds(163, 37, 230, 19);
-		contentPanel.add(formattedTextField_1);
+		JFormattedTextField formattedTextFieldTitulo = new JFormattedTextField();
+		formattedTextFieldTitulo.setName("Titulo");
+		formattedTextFieldTitulo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		formattedTextFieldTitulo.setBounds(163, 8, 230, 19);
+		contentPanel.add(formattedTextFieldTitulo);
 		
-		JFormattedTextField formattedTextField_2 = new JFormattedTextField();
-		formattedTextField_2.setName("anoPublição");
-		formattedTextField_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		formattedTextField_2.setBounds(163, 62, 230, 19);
-		contentPanel.add(formattedTextField_2);
+		JFormattedTextField formattedTextFieldAutor = new JFormattedTextField();
+		formattedTextFieldAutor.setName("Autor");
+		formattedTextFieldAutor.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		formattedTextFieldAutor.setBounds(163, 37, 230, 19);
+		contentPanel.add(formattedTextFieldAutor);
 		
-		JFormattedTextField formattedTextField_3 = new JFormattedTextField();
-		formattedTextField_3.setName("isbn");
-		formattedTextField_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		formattedTextField_3.setBounds(163, 89, 230, 19);
-		contentPanel.add(formattedTextField_3);
+		JFormattedTextField formattedTextFieldAnoPublicacao = new JFormattedTextField(maskAnoPublic);
+		formattedTextFieldAnoPublicacao.setName("Ano de publição");
+		formattedTextFieldAnoPublicacao.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		formattedTextFieldAnoPublicacao.setBounds(163, 62, 230, 19);
+		contentPanel.add(formattedTextFieldAnoPublicacao);
 		
-		JFormattedTextField formattedTextField_4 = new JFormattedTextField();
-		formattedTextField_4.setName("edicao");
-		formattedTextField_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		formattedTextField_4.setBounds(163, 116, 230, 19);
-		contentPanel.add(formattedTextField_4);
+		JFormattedTextField formattedTextFieldIsbn = new JFormattedTextField(maskIsbn);
+		formattedTextFieldIsbn.setName("Isbn");
+		formattedTextFieldIsbn.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		formattedTextFieldIsbn.setBounds(163, 89, 230, 19);
+		contentPanel.add(formattedTextFieldIsbn);
 		
-		JFormattedTextField formattedTextField_5 = new JFormattedTextField();
-		formattedTextField_5.setName("numPaginas");
-		formattedTextField_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		formattedTextField_5.setBounds(163, 143, 230, 19);
-		contentPanel.add(formattedTextField_5);
+		JFormattedTextField formattedTextFieldEdicao = new JFormattedTextField();
+		formattedTextFieldEdicao.setName("Edição");
+		formattedTextFieldEdicao.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		formattedTextFieldEdicao.setBounds(163, 116, 230, 19);
+		contentPanel.add(formattedTextFieldEdicao);
 		
-		JFormattedTextField formattedTextField_6 = new JFormattedTextField();
-		formattedTextField_6.setName("genero");
-		formattedTextField_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		formattedTextField_6.setBounds(163, 170, 230, 19);
-		contentPanel.add(formattedTextField_6);
+		JFormattedTextField formattedTextFieldNumPaginas = new JFormattedTextField();
+		formattedTextFieldNumPaginas.setName("Nùmero de paginas");
+		formattedTextFieldNumPaginas.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		formattedTextFieldNumPaginas.setBounds(163, 143, 230, 19);
+		contentPanel.add(formattedTextFieldNumPaginas);
 		
-		JFormattedTextField formattedTextField_7 = new JFormattedTextField();
-		formattedTextField_7.setName("idioma");
-		formattedTextField_7.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		formattedTextField_7.setBounds(163, 197, 230, 19);
-		contentPanel.add(formattedTextField_7);
+		JFormattedTextField formattedTextFieldGenero = new JFormattedTextField();
+		formattedTextFieldGenero.setName("Gênero");
+		formattedTextFieldGenero.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		formattedTextFieldGenero.setBounds(163, 170, 230, 19);
+		contentPanel.add(formattedTextFieldGenero);
 		
-		JFormattedTextField formattedTextField_8 = new JFormattedTextField();
-		formattedTextField_8.setName("dataAquisicao");
-		formattedTextField_8.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		formattedTextField_8.setBounds(163, 224, 230, 19);
-		contentPanel.add(formattedTextField_8);
+		JFormattedTextField formattedTextFieldIdioma = new JFormattedTextField();
+		formattedTextFieldIdioma.setName("Idioma");
+		formattedTextFieldIdioma.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		formattedTextFieldIdioma.setBounds(163, 197, 230, 19);
+		contentPanel.add(formattedTextFieldIdioma);
 		
-		JFormattedTextField formattedTextField_9 = new JFormattedTextField();
-		formattedTextField_9.setName("estadoConservacao");
-		formattedTextField_9.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		formattedTextField_9.setBounds(163, 254, 230, 19);
-		contentPanel.add(formattedTextField_9);
+		JFormattedTextField formattedTextFieldDataAquisicao = new JFormattedTextField(maskAquisicao);
+		formattedTextFieldDataAquisicao.setName("Data de aquisicao");
+		formattedTextFieldDataAquisicao.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		formattedTextFieldDataAquisicao.setBounds(163, 224, 230, 19);
+		contentPanel.add(formattedTextFieldDataAquisicao);
+		
+		JFormattedTextField formattedTextFieldEstadoConservacao = new JFormattedTextField();
+		formattedTextFieldEstadoConservacao.setName("Estado de Conservacao");
+		formattedTextFieldEstadoConservacao.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		formattedTextFieldEstadoConservacao.setBounds(163, 254, 230, 19);
+		contentPanel.add(formattedTextFieldEstadoConservacao);
+		
+		
+		
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBounds(0, 309, 436, 44);
@@ -201,6 +206,22 @@ public class TelaCadastroLivro extends JDialog {
 			buttonPane.setLayout(null);
 			{
 				JButton okButton = new JButton("Salvar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						camposVazios.setLength(0);
+						
+						boolean verificacao = verificarCamposVazios(formattedTextFieldAnoPublicacao, formattedTextFieldAutor, formattedTextFieldDataAquisicao,
+																	formattedTextFieldEdicao, formattedTextFieldEstadoConservacao, formattedTextFieldGenero,
+																	formattedTextFieldIdioma, formattedTextFieldIsbn, formattedTextFieldNumPaginas, formattedTextFieldTitulo);
+						if(verificacao == true) {
+							JOptionPane.showMessageDialog(contentPanel, "Informações validas!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+							
+						}else {
+							JOptionPane.showMessageDialog(contentPanel, "Por favor verifique o campo(s):" + camposVazios, "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+							
+						}
+					}
+				});
 				okButton.setBounds(154, 5, 60, 29);
 				okButton.setBorder(new LineBorder(new Color(0, 255, 0)));
 				okButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -221,6 +242,10 @@ public class TelaCadastroLivro extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+		  }
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
