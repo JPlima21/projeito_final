@@ -211,9 +211,11 @@ public class TelaCadastroLeitor extends JDialog {
 						
 						if(verificacao == true) {
 							JOptionPane.showMessageDialog(contentPanel, "Informações validas!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+							TelaPrincipal tel = new TelaPrincipal();
+							tel.tabelaLivro(buttonPane);
 							
 						}else {
-							System.out.println(formattedTextFieldCpf.getText());
+							System.out.println(formattedTextFieldCpf);
 							JOptionPane.showMessageDialog(contentPanel, "Por favor verifique o campo(s):" + camposVazios, "Aviso!", JOptionPane.INFORMATION_MESSAGE);
 							
 						}

@@ -38,6 +38,7 @@ public class TelaPrincipal extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private DefaultTableModel model;
+	public JPanel painel_1;
 
 	/**
 	 * Launch the application.
@@ -553,7 +554,7 @@ public class TelaPrincipal extends JFrame {
 		
 		registerTableUsuario(url, user, password);
 		
-		JButton btnNewButtonNovoLeitor = new JButton("Novo livro");
+		JButton btnNewButtonNovoLeitor = new JButton("Novo Usuario");
 		btnNewButtonNovoLeitor.setBounds(0, 11, 96, 23);
 		panel_1.add(btnNewButtonNovoLeitor);
 		btnNewButtonNovoLeitor.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -605,7 +606,7 @@ public class TelaPrincipal extends JFrame {
 		
 		registerTableUsuario(url, user, password);
 		
-		JButton btnNewButtonNovoLeitor = new JButton("Novo livro");
+		JButton btnNewButtonNovoLeitor = new JButton("Novo Usuario");
 		btnNewButtonNovoLeitor.setBounds(0, 11, 96, 23);
 		panel_1.add(btnNewButtonNovoLeitor);
 		btnNewButtonNovoLeitor.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -741,4 +742,8 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 	}
+	//public void atualizarTabela() {
+	//	TelaPrincipal tel = new TelaPrincipal();
+	//	panel_1.setText(tel.registerTableUsuario(url,user,password));
+//	}
 }
