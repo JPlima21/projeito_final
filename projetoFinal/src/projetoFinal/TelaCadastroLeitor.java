@@ -45,7 +45,7 @@ public class TelaCadastroLeitor extends JDialog {
 	private static boolean verificarCamposVazios(JFormattedTextField... campos) {
 		//camposVazios.setLength(0);
         for (JFormattedTextField campo : campos) {
-        	String clearText = campo.getText().replaceAll("[^\\d]", "");
+        	String clearText = campo.getText().replaceAll("[^\\p{L}\\p{N}]", "");
             if (clearText.trim().isEmpty()) {
             	if (camposVazios.length() > 0) {
                     camposVazios.append(", ");
@@ -213,6 +213,7 @@ public class TelaCadastroLeitor extends JDialog {
 							JOptionPane.showMessageDialog(contentPanel, "Informações validas!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
 							
 						}else {
+							System.out.println(formattedTextFieldCpf.getText());
 							JOptionPane.showMessageDialog(contentPanel, "Por favor verifique o campo(s):" + camposVazios, "Aviso!", JOptionPane.INFORMATION_MESSAGE);
 							
 						}

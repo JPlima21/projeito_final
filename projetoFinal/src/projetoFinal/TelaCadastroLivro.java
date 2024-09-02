@@ -39,9 +39,8 @@ public class TelaCadastroLivro extends JDialog {
 	static StringBuilder camposVazios = new StringBuilder();
 
 	private static boolean verificarCamposVazios(JFormattedTextField... campos) {
-		//camposVazios.setLength(0);
         for (JFormattedTextField campo : campos) {
-        	String clearText = campo.getText().replaceAll("[^\\d]", "");
+        	String clearText = campo.getText().replaceAll("[^\\p{L}\\p{N}]", "");
             if (clearText.trim().isEmpty()) {
             	if (camposVazios.length() > 0) {
                     camposVazios.append(", ");
