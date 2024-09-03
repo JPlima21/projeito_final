@@ -1,0 +1,115 @@
+CREATE TABLE IF NOT EXISTS public.cadastroemprestimo
+(
+    id integer NOT NULL DEFAULT nextval('cadastroemprestimo_id_seq'::regclass),
+    livro character varying(100) COLLATE pg_catalog."default",
+    autor character varying(100) COLLATE pg_catalog."default",
+    estoque integer,
+    leitor character varying(100) COLLATE pg_catalog."default",
+    cpf character varying(14) COLLATE pg_catalog."default",
+    data_de_emprestimo date DEFAULT CURRENT_DATE,
+    data_de_devolucao date,
+    CONSTRAINT cadastroemprestimo_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.cadastroemprestimo
+    OWNER to postgres;
+
+SELECT id, livro, autor, estoque, leitor, cpf, data_de_emprestimo, data_de_devolucao
+	FROM public.cadastroemprestimo;
+INSERT INTO public.cadastroemprestimo(
+	id, livro, autor, estoque, leitor, cpf, data_de_emprestimo, data_de_devolucao)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+UPDATE public.cadastroemprestimo
+	SET id=?, livro=?, autor=?, estoque=?, leitor=?, cpf=?, data_de_emprestimo=?, data_de_devolucao=?
+	WHERE <condition>;
+
+
+CREATE TABLE IF NOT EXISTS public.cadastrolivro
+(
+    id integer NOT NULL DEFAULT nextval('cadastrolivro_id_seq'::regclass),
+    titulo_livro character varying(100) COLLATE pg_catalog."default",
+    autor character varying(200) COLLATE pg_catalog."default" NOT NULL,
+    editora character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    ano_de_publicacao date NOT NULL,
+    isbn character varying(17) COLLATE pg_catalog."default",
+    edicao character varying(100) COLLATE pg_catalog."default",
+    paginas integer,
+    genero character varying(100) COLLATE pg_catalog."default",
+    idioma character varying(100) COLLATE pg_catalog."default",
+    data_de_aquisicao date DEFAULT CURRENT_DATE,
+    estado_de_consevacao character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT cadastrolivro_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.cadastrolivro
+    OWNER to postgres;
+
+SELECT id, titulo_livro, autor, editora, ano_de_publicacao, isbn, edicao, paginas, genero, idioma, data_de_aquisicao, estado_de_consevacao
+	FROM public.cadastrolivro;
+
+INSERT INTO public.cadastrolivro(
+	id, titulo_livro, autor, editora, ano_de_publicacao, isbn, edicao, paginas, genero, idioma, data_de_aquisicao, estado_de_consevacao)
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+UPDATE public.cadastrolivro
+	SET id=?, titulo_livro=?, autor=?, editora=?, ano_de_publicacao=?, isbn=?, edicao=?, paginas=?, genero=?, idioma=?, data_de_aquisicao=?, estado_de_consevacao=?
+	WHERE <condition>;
+
+
+CREATE TABLE IF NOT EXISTS public.cadastrousuario
+(
+    id integer NOT NULL DEFAULT nextval('cadastrousuario_id_seq'::regclass),
+    nome character varying(100) COLLATE pg_catalog."default",
+    usuario character varying(100) COLLATE pg_catalog."default",
+    senha character varying(255) COLLATE pg_catalog."default",
+    nivel_de_acesso character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT cadastrousuario_pkey PRIMARY KEY (id),
+    CONSTRAINT cadastrousuario_usuario_key UNIQUE (usuario)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.cadastrousuario
+    OWNER to postgres;
+
+SELECT id, nome, usuario, senha, nivel_de_acesso
+	FROM public.cadastrousuario;
+
+UPDATE public.cadastrousuario
+	SET id=?, nome=?, usuario=?, senha=?, nivel_de_acesso=?
+	WHERE <condition>;
+
+CREATE TABLE IF NOT EXISTS public.registrodeleitor
+(
+    id integer NOT NULL DEFAULT nextval('registrodeleitor_id_seq'::regclass),
+    nome character varying(100) COLLATE pg_catalog."default",
+    cpf character varying(14) COLLATE pg_catalog."default" NOT NULL,
+    telefone character varying(14) COLLATE pg_catalog."default",
+    email character varying(100) COLLATE pg_catalog."default",
+    endereco character varying(400) COLLATE pg_catalog."default",
+    CONSTRAINT registrodeleitor_pkey PRIMARY KEY (id),
+    CONSTRAINT registrodeleitor_cpf_key UNIQUE (cpf),
+    CONSTRAINT registrodeleitor_email_key UNIQUE (email)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.registrodeleitor
+    OWNER to postgres;
+
+SELECT id, nome, cpf, telefone, email, endereco
+	FROM public.registrodeleitor;
+
+INSERT INTO public.registrodeleitor(
+	id, nome, cpf, telefone, email, endereco)
+	VALUES (?, ?, ?, ?, ?, ?);
+
+UPDATE public.registrodeleitor
+	SET id=?, nome=?, cpf=?, telefone=?, email=?, endereco=?
+	WHERE <condition>;
+
