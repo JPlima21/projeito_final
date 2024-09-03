@@ -61,6 +61,7 @@ public class TelaCadastroLeitor extends JDialog {
 	
 	public TelaCadastroLeitor(JFrame parent) {
 		super(parent, "Tela cadastro leitor", true);
+		setResizable(false);
 		setLocationRelativeTo(parent);
 		setBounds(100, 100, 450, 450);
 		getContentPane().setLayout(null);

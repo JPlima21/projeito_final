@@ -155,12 +155,12 @@ public class TelaCadastroLivro extends JDialog {
 		
 		try {
 			MaskFormatter maskAnoPublic, maskIsbn, maskAquisicao;
-			//maskAnoPublic = new MaskFormatter("##/##/####");
-			//maskAnoPublic.setPlaceholderCharacter('_');
+			maskAnoPublic = new MaskFormatter("####-##-##");
+			maskAnoPublic.setPlaceholderCharacter('_');
 			maskIsbn = new MaskFormatter("###-#-###-####-#");
 			maskIsbn.setPlaceholderCharacter('_');
-			//maskAquisicao = new MaskFormatter("##/##/####");
-			//maskAquisicao.setPlaceholderCharacter('_');
+			maskAquisicao = new MaskFormatter("####-##-##");
+			maskAquisicao.setPlaceholderCharacter('_');
 		
 		
 		
@@ -176,7 +176,7 @@ public class TelaCadastroLivro extends JDialog {
 		formattedTextFieldAutor.setBounds(163, 35, 230, 19);
 		contentPanel.add(formattedTextFieldAutor);
 		
-		formattedTextFieldAnoPublicacao = new JFormattedTextField();
+		formattedTextFieldAnoPublicacao = new JFormattedTextField(maskAnoPublic);
 		formattedTextFieldAnoPublicacao.setName("Ano de publição");
 		formattedTextFieldAnoPublicacao.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		formattedTextFieldAnoPublicacao.setBounds(163, 89, 230, 19);
@@ -212,7 +212,7 @@ public class TelaCadastroLivro extends JDialog {
 		formattedTextFieldIdioma.setBounds(163, 224, 230, 19);
 		contentPanel.add(formattedTextFieldIdioma);
 		
-		 formattedTextFieldDataAquisicao = new JFormattedTextField();
+		 formattedTextFieldDataAquisicao = new JFormattedTextField(maskAquisicao);
 		formattedTextFieldDataAquisicao.setName("Data de aquisicao");
 		formattedTextFieldDataAquisicao.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		formattedTextFieldDataAquisicao.setBounds(163, 251, 230, 19);
@@ -248,7 +248,7 @@ public class TelaCadastroLivro extends JDialog {
 																	formattedTextFieldIdioma, formattedTextFieldIsbn, formattedTextFieldNumPaginas, formattedTextFieldTitulo);
 						if(verificacao == true) {
 							salvarDados();
-							JOptionPane.showMessageDialog(contentPanel, "Informações validas!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+//							JOptionPane.showMessageDialog(contentPanel, "Informações validas!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
 							TelaPrincipal tel=new TelaPrincipal();
 							tel.tabelaLeitor(buttonPane);
 							
@@ -258,7 +258,7 @@ public class TelaCadastroLivro extends JDialog {
 						}
 					}
 				});
-				okButton.setBounds(154, 5, 60, 29);
+				okButton.setBounds(105, 5, 60, 29);
 				okButton.setBorder(new LineBorder(new Color(0, 255, 0)));
 				okButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				okButton.setActionCommand("OK");
@@ -272,7 +272,7 @@ public class TelaCadastroLivro extends JDialog {
 						dispose();
 					}
 				});
-				cancelButton.setBounds(219, 5, 60, 29);
+				cancelButton.setBounds(270, 5, 60, 29);
 				cancelButton.setBorder(new LineBorder(new Color(255, 0, 0)));
 				cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				cancelButton.setActionCommand("Cancel");
