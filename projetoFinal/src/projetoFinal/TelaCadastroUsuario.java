@@ -125,7 +125,7 @@ public class TelaCadastroUsuario extends JDialog {
 				JButton okButton = new JButton("Salvar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(verificarCamposVazios(formattedTextFieldNome, formattedTextFieldUsuario)&&  && passwordFieldRepetir.equals(passwordField) && comboBox.getSelectedIndex() != 0) {
+						if(verificarCamposVazios(formattedTextFieldNome, formattedTextFieldUsuario)&& passwordFieldRepetir.equals(passwordField) && comboBox.getSelectedIndex() != 0) {
 							JOptionPane.showMessageDialog(contentPanel, "Informações validas!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
 							System.out.println(comboBox.getSelectedItem());
 							
