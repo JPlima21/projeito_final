@@ -125,12 +125,13 @@ public class TelaCadastroUsuario extends JDialog {
 				JButton okButton = new JButton("Salvar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(verificarCamposVazios() && passwordFieldRepetir.equals(passwordField) && comboBox.getSelectedIndex() != 0) {
+						if(verificarCamposVazios(formattedTextFieldNome, formattedTextFieldUsuario)&&  && passwordFieldRepetir.equals(passwordField) && comboBox.getSelectedIndex() != 0) {
 							JOptionPane.showMessageDialog(contentPanel, "Informações validas!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
 							System.out.println(comboBox.getSelectedItem());
+							
 						}else if(!passwordFieldRepetir.equals(passwordField)){
-//							JOptionPane.showMessageDialog(contentPanel, "verifique sua senha!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
-							System.out.println(passwordField.getText());
+							JOptionPane.showMessageDialog(contentPanel, "verifique sua senha!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+							
 						}else {
 							JOptionPane.showMessageDialog(contentPanel, "Por favor verifique o campo(s):" + camposVazios, "Aviso!", JOptionPane.INFORMATION_MESSAGE);
 							
@@ -188,8 +189,7 @@ public class TelaCadastroUsuario extends JDialog {
         }
     }
 	
-	private static boolean verificarCamposVazios(JFormattedTextField... campos) {
-		//camposVazios.setLength(0);
+	public static boolean verificarCamposVazios(JFormattedTextField... campos) {
         for (JFormattedTextField campo : campos) {
         	String clearText = campo.getText().replaceAll("[^\\p{L}\\p{N}]", "");
             if (clearText.trim().isEmpty()) {
@@ -199,6 +199,7 @@ public class TelaCadastroUsuario extends JDialog {
             	 camposVazios.append(campo.getName());
             }
         }
+        
         if(camposVazios.isEmpty()) {
         	return true;
         }
