@@ -34,6 +34,7 @@ public class EditDialog extends JDialog {
     private JTextField usuarioField;
     private JPasswordField senhaField;
     private JTextField nivelAcessoField;
+    private JTextField editoraField;
     
     private boolean confirmed;
     public EditDialog(JFrame parent) {
@@ -104,7 +105,7 @@ public class EditDialog extends JDialog {
         //setLocationRelativeTo(parent);
     }
         
-    public void livroEditDialog(String id, String titulo, String autor, String anoPublicacao, String isbn, String edicao, String numPaginas, String genero, String idioma, String dataAquisicao, String estadoDeConservacao) {
+    public void livroEditDialog(String id, String titulo, String autor, String editora, String anoPublicacao, String isbn, String edicao, String numPaginas, String genero, String idioma, String dataAquisicao, String estadoDeConservacao) {
 //        super(parent, "Editar Dados do Livro", true);
 //        setLayout(new GridLayout(10, 2));
         
@@ -118,6 +119,12 @@ public class EditDialog extends JDialog {
             add(new JLabel("Autor(es):"));
             autorField = new JTextField(autor);
             add(autorField);
+        }
+        
+        if (editora != null) {
+            add(new JLabel("Editora:"));
+            editoraField = new JTextField(editora);
+            add(editoraField);
         }
 
         if (anoPublicacao != null) {
@@ -269,6 +276,10 @@ public class EditDialog extends JDialog {
 
     public String getAutor() {
         return autorField != null ? autorField.getText() : null;
+    }
+    
+    public String getEditora() {
+        return editoraField != null ? editoraField.getText() : null;
     }
 
     public String getAnoPublicacao() {

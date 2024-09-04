@@ -1,5 +1,6 @@
 package projetoFinal;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -7,7 +8,9 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 
 import javax.swing.JButton;
@@ -17,8 +20,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 public class TelaCadastroLivro extends JDialog {
@@ -33,8 +39,15 @@ public class TelaCadastroLivro extends JDialog {
 	JFormattedTextField formattedTextFieldDataAquisicao;
 	JFormattedTextField formattedTextFieldEstadoConservacao;
 	JFormattedTextField formattedTextFieldEditora;
+	public JPanel teste;
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
+	private JPanel contentPane;
+	private JTable table;
+	private DefaultTableModel model;
+	public JPanel panel_1;
+	 private JTable table3;
+	    private DefaultTableModel tableModel;
 
 	/**
 	 * Launch the application.
@@ -48,7 +61,16 @@ public class TelaCadastroLivro extends JDialog {
 			e.printStackTrace();
 		}
 	}
-	
+	 public TelaCadastroLivro() {
+	        // Inicialize panel_1
+	        panel_1 = new JPanel();
+	        panel_1.setLayout(null); // Defina o layout como null ou outro layout manager adequado
+	        
+	        // Inicialize outros componentes ou configurações se necessário
+	    }
+	String url2 = "jdbc:postgresql://localhost:5432/Projeto_Biblioteca";
+	String user = "postgres";
+	String password = "postgres";
 	
 	 private Connection conectar() throws SQLException {
 	        // Substitua os valores abaixo pelos detalhes do seu banco de dados
@@ -249,8 +271,10 @@ public class TelaCadastroLivro extends JDialog {
 						if(verificacao == true) {
 							salvarDados();
 //							JOptionPane.showMessageDialog(contentPanel, "Informações validas!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
-							TelaPrincipal tel=new TelaPrincipal();
-							tel.tabelaLeitor(buttonPane);
+						//	TelaPrincipal tel=new TelaPrincipal();
+							//tel.tabelaLivro(panel_1);
+							TelaPrincipal tela = new TelaPrincipal();
+							tela.tabelaLivro(tela.panel_table);
 							
 						}else {
 							JOptionPane.showMessageDialog(contentPanel, "Por favor verifique o campo(s):" + camposVazios, "Aviso!", JOptionPane.INFORMATION_MESSAGE);
@@ -286,6 +310,21 @@ public class TelaCadastroLivro extends JDialog {
 		
 		
 	}
+	 public void TabelaPanel() {
+	        setLayout(new BorderLayout());
+
+	        // Cria o modelo da tabela
+	        tableModel = new DefaultTableModel(new Object[]{"Dados"}, 0);
+	        table3 = new JTable(tableModel);
+
+	        // Adiciona a tabela a um JScrollPane
+	        JScrollPane scrollPane = new JScrollPane(table);
+	        add(scrollPane, BorderLayout.CENTER);
+	    }
+
+	    public void adicionarDado(String dado) {
+	        tableModel.addRow(new Object[]{dado});
+	    }
 	private void salvarDados() {
         try (Connection conn = conectar()) {
             String sql = "INSERT INTO cadastrolivro (titulo_livro, autor,editora, ano_de_publicacao, isbn, edicao, paginas, genero, idioma, data_de_aquisicao, estado_de_consevacao) VALUES (?, ?,?, TO_DATE(?, 'YYYY-MM-DD'), ?, ?, ?, ?, ?, TO_DATE(?, 'YYYY-MM-DD'), ?)";

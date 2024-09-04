@@ -125,16 +125,21 @@ public class TelaCadastroUsuario extends JDialog {
 				JButton okButton = new JButton("Salvar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(verificarCamposVazios(formattedTextFieldNome, formattedTextFieldUsuario)&& passwordFieldRepetir.equals(passwordField) && comboBox.getSelectedIndex() != 0) {
-							JOptionPane.showMessageDialog(contentPanel, "Informações validas!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
-							System.out.println(comboBox.getSelectedItem());
-							
-						}else if(!passwordFieldRepetir.equals(passwordField)){
-							JOptionPane.showMessageDialog(contentPanel, "verifique sua senha!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
-							
+						String senha = passwordFieldRepetir.getText();
+						String senha2 = passwordField.getText();
+						
+						if(senha.equals(senha2)) {
+							if(verificarCamposVazios(formattedTextFieldNome, formattedTextFieldUsuario) == true && comboBox.getSelectedIndex() != 0) {
+								salvarDados();
+//								JOptionPane.showMessageDialog(contentPanel, "Informações validas!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+								System.out.println(comboBox.getSelectedItem());
+								
+							}else {
+								JOptionPane.showMessageDialog(contentPanel, "Por favor verifique o campo(s):" + camposVazios, "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+								
+							}
 						}else {
-							JOptionPane.showMessageDialog(contentPanel, "Por favor verifique o campo(s):" + camposVazios, "Aviso!", JOptionPane.INFORMATION_MESSAGE);
-							
+							JOptionPane.showMessageDialog(contentPanel, "Verifique sua senha!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 				});
